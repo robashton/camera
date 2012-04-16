@@ -1,5 +1,7 @@
 This is a very small library for doing viewport/camera management in a HTML5 Canvas based game in a pixel and aspect-ratio independent manner.
 
+That is, you can use the canvas context however you like, with any sized canvas and the output will be the same (consider the case of stretching the canvas to fit various screen resolutions and devices)
+
 **Usage**
 
     var canvas = document.getElementById('target');
