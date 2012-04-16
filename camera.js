@@ -68,4 +68,5 @@
   };
 
   this.Camera = Camera;
+  
 }).call(this);
