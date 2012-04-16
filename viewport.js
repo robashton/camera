@@ -44,11 +44,11 @@
       this.viewport.scale[0] = this.context.canvas.width / this.viewport.width;
       this.viewport.scale[1] = this.context.canvas.height / this.viewport.height;
     },
-    zoomTo: function(value) {
-      this.distance = value;
+    zoomTo: function(z) {
+      this.distance = z;
       this.updateViewport();
     },
-    scrollTo: function(x, y) {
+    moveTo: function(x, y) {
       this.lookat[0] = x;
       this.lookat[1] = y;
       this.updateViewport();
@@ -68,5 +68,4 @@
   };
 
   this.Camera = Camera;
-
 }).call(this);
