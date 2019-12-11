@@ -1,33 +1,59 @@
-$(document).ready(function() {
-  var canvas = document.getElementById('target');
-  var context = canvas.getContext('2d');
-  var camera = new Camera(context);
-  var renderFrame = findRequestAnimationFrame();
-  var objects = [];
+import Camera from '../camera.js';
+import ObjectPool from './object-pool.js';
+import Wall from './wall.js';
+import { findRequestAnimationFrame } from './utils.js';
 
-  var updateScene = function() {
-    objects.forEach(function(item) {
-      if(item.tick) item.tick();
+class Game {
+  constructor() {
+    this.canvas = document.createElement('canvas');
+    this.context = this.canvas.getContext('2d');
+    this.camera = new Camera(this.context);
+    this.objects = [];
+    this.renderFrame = findRequestAnimationFrame();
+
+    // Create a wall
+    const wall = new Wall(-300, -300, 600, 600);
+    this.objects.push(wall);
+    this.objects.push(new ObjectPool(wall, 10));
+  }
+
+  // Update each item in the game
+  updateScene() {
+    this.objects.forEach(item => {
+      if (item.tick) {
+        item.tick();
+      }
     });
-  };
+  }
 
-  var drawScene = function() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    camera.begin();
-    objects.forEach(function(item) {
-      if(item.draw) item.draw(context);
+  // Draw each item in the game
+  drawScene() {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.camera.begin();
+    this.objects.forEach(item => {
+      if (item.draw) {
+        item.draw(this.context);
+      }
     });
-    camera.end();
-  };
+    this.camera.end();
+  }
 
-  var tick = function() {
-    updateScene();
-    drawScene();
-    renderFrame(tick);
-  };
+  // Main game loop
+  tick() {
+    this.updateScene();
+    this.drawScene();
+    this.renderFrame(() => {
+      this.tick();
+    });
+  }
 
-  var wall = new Wall(-300, -300, 600, 600);  
-  objects.push(wall);
-  objects.push(new ObjectPool(wall, 10));
-  renderFrame(tick);
-});
+
+  start() {
+    // Start the game ticking
+    this.renderFrame(() => {
+      this.tick();
+    });
+  }
+};
+
+export default Game;

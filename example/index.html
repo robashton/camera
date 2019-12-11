@@ -1,11 +1,14 @@
 <html>
   <head>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  	<script type="text/javascript" src="../camera.js"></script>
-    <script type="text/javascript" src="cruft.js"></script>
-    <script type="text/javascript" src="example.js"></script>
+    <script type="module">
+      import Game from './example.js';
+
+      const game = new Game();
+      document.getElementById('game').replaceWith(game.canvas);
+      game.start();
+    </script>
   </head>
   <body>
-    <canvas id="target" width="640" height="480"></canvas>
+    <div id="game">This is a placeholder for the game.<br>If you're seeing this you need to enable javascript. <3</div>
   </body>
 </html>
