@@ -14,6 +14,8 @@ class Camera {
             height: 0,
             scale: [1.0, 1.0]
         };
+
+        this.addListeners();
         this.updateViewport();
     }
 
@@ -70,6 +72,35 @@ class Camera {
         obj.x = (x - this.viewport.left) * (this.viewport.scale[0]);
         obj.y = (y - this.viewport.top) * (this.viewport.scale[1]);
         return obj;
+    }
+
+    addListeners() {
+        // Zoom and scroll around world
+        window.onwheel = e => {
+            if (e.ctrlKey) {
+                // Your zoom/scale factor
+                let zoomLevel = this.distance - (e.deltaY * 20);
+                if (zoomLevel <= 1) {
+                    zoomLevel = 1;
+                }
+
+                this.zoomTo(zoomLevel);
+            } else {
+                // Your track-pad X and Y positions
+                const x = this.lookAt[0] + (e.deltaX * 2);
+                const y = this.lookAt[1] + (e.deltaY * 2);
+
+                this.moveTo(x, y);
+            }
+        };
+
+        // Center camera on "R"
+        window.addEventListener('keydown', e => {
+            if (e.key === 'r') {
+                this.zoomTo(1000);
+                this.moveTo(0, 0);
+            }
+        });
     }
 };
 

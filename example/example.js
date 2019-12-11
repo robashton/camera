@@ -4,12 +4,15 @@ import Wall from './wall.js';
 import { findRequestAnimationFrame } from './utils.js';
 
 class Game {
+  static renderFrame = findRequestAnimationFrame();
+
   constructor() {
     this.canvas = document.createElement('canvas');
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
     this.context = this.canvas.getContext('2d');
     this.camera = new Camera(this.context);
     this.objects = [];
-    this.renderFrame = findRequestAnimationFrame();
 
     // Create a wall
     const wall = new Wall(-300, -300, 600, 600);
@@ -42,7 +45,7 @@ class Game {
   tick() {
     this.updateScene();
     this.drawScene();
-    this.renderFrame(() => {
+    Game.renderFrame(() => {
       this.tick();
     });
   }
@@ -50,7 +53,7 @@ class Game {
 
   start() {
     // Start the game ticking
-    this.renderFrame(() => {
+    Game.renderFrame(() => {
       this.tick();
     });
   }
