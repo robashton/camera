@@ -116,21 +116,6 @@ Appropriate transformations will be applied to the context, and world coordinate
 
 ## Methods
 
-<style>
-  .blue {
-    color: #0078d4;
-  }
-  .red {
-    color: #d41c00;
-    font-weight: normal;
-  }
-  .black {
-    color:#333333;
-    font-weight: 600;
-  }
-
-</style>
-
 | Method                                                                                                | Description                                                                   |
 | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | <span class="blue">begin<span class="black">()</span></span>                                          | Applies Scale and Translation [Rendering](#rendering)                         |
