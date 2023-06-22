@@ -8,6 +8,7 @@ export default class Camera {
     constructor(context, settings = {}) {
         this.distance = settings.distance || 1000.0;
         this.lookAt = settings.initialPosition || [0, 0];
+        this.rotation = 0;
         this.context = context;
         this.fieldOfView = settings.fieldOfView || Math.PI / 4.0;
         this.viewport = {
@@ -41,6 +42,7 @@ export default class Camera {
         this.context.save();
         this.applyScale();
         this.applyTranslation();
+        this.applyRotation();
     }
 
     /**
@@ -62,6 +64,13 @@ export default class Camera {
      */
     applyTranslation() {
         this.context.translate(-this.viewport.left, -this.viewport.top);
+    }
+    
+    /**
+     * 2d context rotate
+     */
+    applyRotation() {
+        this.context.rotate(this.rotation);
     }
 
     /**
@@ -96,6 +105,15 @@ export default class Camera {
     moveTo(x, y) {
         this.lookAt[0] = x;
         this.lookAt[1] = y;
+        this.updateViewport();
+    }
+    
+    /**
+     * Rotates the viewport with it's center as the origin (updates camera.rotation)
+     * @param {radian rotation} radian
+     */
+    rotateTo(radian) {
+        this.rotation = radian;
         this.updateViewport();
     }
 
