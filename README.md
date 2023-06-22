@@ -10,6 +10,7 @@ That is, you can use the canvas context however you like, with any sized canvas 
     -   [Usage](#usage)
     -   [Moving the camera](#moving-the-camera)
     -   [Controlling camera zoom](#controlling-camera-zoom)
+    -   [Rotating the camera](#controlling-camera-rotation)
     -   [Interacting with the scene](#interacting-with-the-scene)
     -   [Overlaying the scene](#overlaying-the-scene)
     -   [Rendering](#rendering)
