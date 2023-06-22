@@ -48,6 +48,16 @@ camera.zoomTo(z)
 
 <hr>
 
+## Controlling camera rotation
+
+Rotate the viewport by a given radian (0 - 2π) with it's center as the origin
+
+```js
+camera.rotateTo(radian)
+```
+
+<hr>
+
 ## Interacting with the scene
 
 Transform a coordinate pair from screen coordinates (relative to the canvas)
