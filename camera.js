@@ -33,35 +33,16 @@ export default class Camera {
     }
 
     /**
-     * Applies to canvas context the parameters:
-     *  -Scale
-     *  -Translation
+     * Renders the scene by applying scaling and translation to the context,
+     * invoking the provided callback, and then restoring the context.
+     * @param {Function} callback - The rendering callback that takes a context as its parameter.
      */
-    begin() {
+    render(callback) {
         this.context.save();
-        this.applyScale();
-        this.applyTranslation();
-    }
-
-    /**
-     * 2d Context restore() method
-     */
-    end() {
-        this.context.restore();
-    }
-
-    /**
-     * 2d Context scale(Camera.viewport.scale[0], Camera.viewport.scale[0]) method
-     */
-    applyScale() {
         this.context.scale(this.viewport.scale[0], this.viewport.scale[1]);
-    }
-
-    /**
-     * 2d Context translate(-Camera.viewport.left, -Camera.viewport.top) method
-     */
-    applyTranslation() {
         this.context.translate(-this.viewport.left, -this.viewport.top);
+        callback(this.context);
+        this.context.restore();
     }
 
     /**
